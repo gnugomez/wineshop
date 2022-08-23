@@ -27,24 +27,34 @@ insert into region (name, id, country) (select distinct region, 0, 'Espana' from
 drop table wine;
 create table wine
 (
-    id        integer auto_increment primary key,
-    name      varchar(255),
-    year      varchar(255),
-    winery_id integer references winery (id),
-    type_id   integer references type (id),
-    region_id integer references region (id)
+    id          integer auto_increment primary key,
+    name        varchar(255),
+    year        varchar(255),
+    rating      double,
+    num_reviews integer,
+    price       double,
+    body        varchar(16),
+    acidity     varchar(16),
+    winery_id   integer references winery (id),
+    type_id     integer references type (id),
+    region_id   integer references region (id)
 );
 
 
 insert into wine
-select w.id      as id,
-       w.wine    as name,
-       w.year    as year,
-       winery.id as winery_id,
-       type.id   as type_id,
-       region.id as region_id
+select w.id          as id,
+       w.wine        as name,
+       w.year        as year,
+       w.rating      as rating,
+       w.num_reviews as num_reviews,
+       w.price       as price,
+       w.body        as body,
+       w.acidity     as acidity,
+       winery.id     as winery_id,
+       type.id       as type_id,
+       region.id     as region_id
 from wines_spa w
-         left join winery on winery.name = w.winery
-         left join type on type.name = w.type
-         left join region on region.name = w.region
+    left join winery on winery.name = w.winery
+    left join type on type.name = w.type
+    left join region on region.name = w.region
 order by id;
