@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Wine {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String year;
@@ -18,6 +19,25 @@ public class Wine {
     private Integer winery_id;
     private Integer type_id;
     private Integer region_id;
+
+    public Wine(){
+
+    }
+
+    public Wine(Long id, String name, String year, Double rating, Integer num_reviews, Double price,
+                String body, String acidity, Integer winery_id, Integer type_id, Integer region_id) {
+        this.id = id;
+        this.name = name;
+        this.year = year;
+        this.rating = rating;
+        this.num_reviews = num_reviews;
+        this.price = price;
+        this.body = body;
+        this.acidity = acidity;
+        this.winery_id = winery_id;
+        this.type_id = type_id;
+        this.region_id = region_id;
+    }
 
     public Long getId() {
         return id;
