@@ -1,0 +1,3 @@
+spring.datasource.url=jdbc:mysql://rdbm:3306/gftXX
+spring.datasource.username=gftXX
+spring.datasource.password=gftXX
