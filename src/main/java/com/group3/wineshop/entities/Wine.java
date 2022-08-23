@@ -1,7 +1,6 @@
 package com.group3.wineshop.entities;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "wine")
@@ -10,28 +9,15 @@ public class Wine {
     @Id
     private Long id;
     private String name;
-    private Integer year;
-    private Float rating;
+    private String year;
+    private Double rating;
     private Integer num_reviews;
-    private Float price;
-    private Integer body;
-    private Integer acidity;
+    private Double price;
+    private String body;
+    private String acidity;
     private Integer winery_id;
     private Integer type_id;
     private Integer region_id;
-
-
-
-    @ManyToOne
-    @JoinColumn(name = "region_id")
-    private Region region;
-    @ManyToOne
-    @JoinColumn(name = "type_id")
-    private Type type;
-    @ManyToOne
-    @JoinColumn(name = "winery_id")
-    private Winery winery;
-
 
     public Long getId() {
         return id;
@@ -49,19 +35,19 @@ public class Wine {
         this.name = name;
     }
 
-    public Integer getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(Integer year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public Float getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Float rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
@@ -73,27 +59,27 @@ public class Wine {
         this.num_reviews = num_reviews;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public Integer getBody() {
+    public String getBody() {
         return body;
     }
 
-    public void setBody(Integer body) {
+    public void setBody(String body) {
         this.body = body;
     }
 
-    public Integer getAcidity() {
+    public String getAcidity() {
         return acidity;
     }
 
-    public void setAcidity(Integer acidity) {
+    public void setAcidity(String acidity) {
         this.acidity = acidity;
     }
 
@@ -121,41 +107,12 @@ public class Wine {
         this.region_id = region_id;
     }
 
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    public Winery getWinery() {
-        return winery;
-    }
-
-    public void setWinery(Winery winery) {
-        this.winery = winery;
-    }
-
     @Override
     public String toString() {
         return "Wine{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", year=" + year +
-                ", rating=" + rating +
-                ", num_reviews=" + num_reviews +
-                ", price=" + price +
-                ", body=" + body +
-                ", acidity=" + acidity +
                 ", winery_id=" + winery_id +
                 ", type_id=" + type_id +
                 ", region_id=" + region_id +

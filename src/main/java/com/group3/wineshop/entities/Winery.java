@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -13,8 +14,8 @@ public class Winery {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "winery")
-    private Set<Object> wines;
+    public Winery() {
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -33,20 +34,11 @@ public class Winery {
         return name;
     }
 
-    public Set<Object> getWines() {
-        return wines;
-    }
-
-    public void setWines(Set<Object> wines) {
-        this.wines = wines;
-    }
-
     @Override
     public String toString() {
         return "Winery{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", wines=" + wines +
                 '}';
     }
 }

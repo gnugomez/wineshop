@@ -3,16 +3,13 @@ package com.group3.wineshop.entities;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="region")
 public class Region {
-    @OneToMany(mappedBy="region")
-    private Set<Wine> wines = new LinkedHashSet<>();
-
     @Id
-    @GeneratedValue
-    private long id;
+    private Long id;
 
     private String name;
     private String country;
@@ -33,11 +30,11 @@ public class Region {
         this.country = country;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -50,9 +47,4 @@ public class Region {
                 '}';
     }
 
-    public Region(int id, String name, String country) {
-        this.id = id;
-        this.name = name;
-        this.country = country;
-    }
 }

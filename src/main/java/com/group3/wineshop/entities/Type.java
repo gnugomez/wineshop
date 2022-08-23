@@ -1,6 +1,7 @@
 package com.group3.wineshop.entities;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -9,9 +10,6 @@ public class Type {
     @Id
     private Long id;
     private String name;
-
-    @OneToMany(mappedBy = "type")
-    private Set<Object> wines = new java.util.LinkedHashSet<>();
 
     public Long getId() {
         return id;
@@ -27,14 +25,6 @@ public class Type {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Wine> getWines() {
-        this.name = name;
-    }
-
-    public void setWines(Set<Wine>wines) {
-        this.wines = wines;
     }
 
     @Override
