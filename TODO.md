@@ -1,13 +1,21 @@
 # Tareas sprint 1
-- [ ] Create database tables
-- [ ] Populate database
+- [x] Create database tables
+- [x] Populate database
 - [x] Create Spring Project (wineshop)
 - [ ] Create entities
+  - [ ] Create winery
+  - [ ] Create type
+  - [ ] Create region 
+  - [ ] Create wine 
 - [ ] Create repositories
-- [ ] Create /api/winery endpoint
-- [ ] Create /api/type endpoint
-- [ ] Create /api/region endpoint
-- [ ] Create /api/wine endpoint
+  - [ ] Create winery
+  - [ ] Create type
+  - [ ] Create region
+  - [ ] Create wine 
+- [ ] Create /api/winerys endpoint
+- [ ] Create /api/types endpoint
+- [ ] Create /api/regions endpoint
+- [ ] Create /api/wines endpoint
 - [ ] Enable basic authentication
 - [ ] Create unit tests
 - [ ] Create functional tests
