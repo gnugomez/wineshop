@@ -2,16 +2,16 @@
 - [x] Create database tables
 - [x] Populate database
 - [x] Create Spring Project (wineshop)
-- [ ] Create entities
-  - [ ] Create winery
-  - [ ] Create type
-  - [ ] Create region 
-  - [ ] Create wine 
-- [ ] Create repositories
-  - [ ] Create winery
-  - [ ] Create type
-  - [ ] Create region
-  - [ ] Create wine 
+- [x] Create entities
+  - [x] Create winery
+  - [x] Create type
+  - [x] Create region 
+  - [x] Create wine 
+- [x] Create repositories
+  - [x] Create winery
+  - [x] Create type
+  - [x] Create region
+  - [x] Create wine 
 - [ ] Create /api/winerys endpoint
 - [ ] Create /api/types endpoint
 - [ ] Create /api/regions endpoint
