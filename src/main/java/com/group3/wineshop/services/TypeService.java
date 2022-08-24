@@ -24,8 +24,9 @@ public class TypeService {
     public Type save(Type type){
         return typeRepository.save(type);
     }
-    public void deleteById(Long id){
+    public boolean delete(Long id) {
         typeRepository.deleteById(id);
+        return true;
     }
     public Type update(Type type){
         return typeRepository.save(type);

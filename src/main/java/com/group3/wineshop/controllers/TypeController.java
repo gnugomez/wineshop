@@ -1,9 +1,12 @@
 package com.group3.wineshop.controllers;
 
 import com.group3.wineshop.entities.Type;
+import com.group3.wineshop.entities.Winery;
 import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.services.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,15 +26,14 @@ public class TypeController {
         return typeService.getById(id);
     }
     @PostMapping("")
-    public Type save(@RequestBody Type type){
-        return typeService.save(type);
+    public ResponseEntity<Type> save(@RequestBody Type type) {
+        return new ResponseEntity<>(typeService.save(type), null, HttpStatus.CREATED);
     }
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id){
-        typeService.deleteById(id);
+        typeService.delete(id);
 
     }
-
     @PatchMapping("/{id}")
     public Type update(@PathVariable Long id, @RequestBody Type type){
         type.setId(id);

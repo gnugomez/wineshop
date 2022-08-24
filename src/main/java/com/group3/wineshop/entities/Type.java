@@ -9,11 +9,15 @@ import java.util.Set;
 
 public class Type {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
     public Type() {
 
+    }
+    public Type(String name) {
+    this.name = name;
     }
 
     public Long getId() {
