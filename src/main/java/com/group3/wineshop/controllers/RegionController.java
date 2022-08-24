@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/region")
+@RequestMapping("/api/regions")
 public class RegionController {
     @Autowired
     RegionService regionService;
@@ -22,6 +22,7 @@ public class RegionController {
     @GetMapping("/{id}")
     public Region getById(@PathVariable Long id) throws NotFoundException {
         return regionService.findById(id);
+
     }
 
     @PostMapping("")
