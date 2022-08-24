@@ -24,10 +24,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '11'
-      #Rename applications.properties.sample to applications.properties
-      - name: Rename applications.properties.sample to applications.properties
-        run: |
-          cp "./application.properties.sample" "./applications.properties"
       #Set up Maven cache
       - name: Cache Maven packages
         #This action allows caching dependencies and build outputs to improve workflow execution time.
