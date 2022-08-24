@@ -1,6 +1,7 @@
 package com.group3.wineshop.controllers;
 
 import com.group3.wineshop.entities.Region;
+import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.services.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class RegionController {
     }
 
     @GetMapping("/{id}")
-    public Region getById(@PathVariable Long id) throws Exception {
+    public Region getById(@PathVariable Long id) throws NotFoundException {
         return regionService.findById(id);
     }
 

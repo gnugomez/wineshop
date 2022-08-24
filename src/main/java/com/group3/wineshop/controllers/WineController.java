@@ -1,6 +1,7 @@
 package com.group3.wineshop.controllers;
 
 import com.group3.wineshop.entities.Wine;
+import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.services.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class WineController {
     }
 
     @GetMapping("/{id}")
-    Wine findOne(@PathVariable Long id) throws Exception{
+    Wine findOne(@PathVariable Long id) throws NotFoundException {
         return wineService.getById(id);
     }
 
