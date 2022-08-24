@@ -6,10 +6,15 @@ import java.util.Set;
 
 @Entity
 @Table(name ="type")
+
 public class Type {
     @Id
     private Long id;
     private String name;
+
+    public Type() {
+
+    }
 
     public Long getId() {
         return id;
