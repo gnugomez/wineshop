@@ -9,10 +9,20 @@ import java.util.Set;
 @Table(name="region")
 public class Region {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
     private String country;
+
+    public Region(){
+
+    }
+
+    public Region(String name, String country) {
+        this.name = name;
+        this.country = country;
+    }
 
     public String getName() {
         return name;
