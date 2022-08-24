@@ -1,9 +1,12 @@
 package com.group3.wineshop.controllers;
 
 import com.group3.wineshop.entities.Region;
+import com.group3.wineshop.entities.Winery;
 import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.services.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,14 +29,14 @@ public class RegionController {
     }
 
     @PostMapping("")
-    public Region save(@RequestBody Region region) {
-        return regionService.create(region);
+    public ResponseEntity<Region> save(@RequestBody Region region) {
+        return new ResponseEntity<>(regionService.create(region), null, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public Region update(@RequestBody Region region, @PathVariable Long id) {
+    public ResponseEntity<Region> update(@RequestBody Region region, @PathVariable Long id) {
         region.setId(id);
-        return regionService.update(region);
+        return new ResponseEntity<>(regionService.update(region), null, HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")

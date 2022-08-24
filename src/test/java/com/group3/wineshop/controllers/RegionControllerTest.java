@@ -89,7 +89,25 @@ public class RegionControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(requestJson)
                 )
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    void testUpdate_Ok() throws Exception {
+        Region region = new Region();
+        when(regionService.update(any())).thenReturn(region);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(region);
+
+
+        mockMvc.perform(patch("/api/regions/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson)
+                )
+                .andExpect(status().isNoContent());
     }
 
     @Test
