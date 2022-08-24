@@ -4,6 +4,8 @@ import com.group3.wineshop.entities.Wine;
 import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.services.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,18 +27,19 @@ public class WineController {
         return wineService.getById(id);
     }
 
-    @PostMapping("save")
-    Wine save(@RequestBody Wine wine) {
-        return wineService.save(wine);
+    @PostMapping("")
+    ResponseEntity<Wine> save(@RequestBody Wine wine) {
+        return new ResponseEntity<>(wineService.save(wine), null, HttpStatus.CREATED);
     }
 
-    @PatchMapping("update")
+    @PatchMapping("")
     Wine update(@RequestBody Wine wine) {
-        return wineService.save(wine);
+        return  wineService.save(wine);
     }
 
-    @DeleteMapping("delete/{id}")
-    void deleteOne(@PathVariable Long id){
+    @DeleteMapping("/{id}")
+    ResponseEntity<String> deleteOne(@PathVariable Long id){
         wineService.deleteById(id);
+        return new ResponseEntity<>("Wine deleted successfully", null, HttpStatus.ACCEPTED);
     }
 }
