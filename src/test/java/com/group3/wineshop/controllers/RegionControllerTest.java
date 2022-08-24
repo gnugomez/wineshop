@@ -1,11 +1,9 @@
-package com.group3.wineshop;
+package com.group3.wineshop.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.group3.wineshop.entities.Region;
-import com.group3.wineshop.exceptions.NotFoundException;
-import com.group3.wineshop.repositories.RegionRepository;
 import com.group3.wineshop.services.RegionService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -24,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class RegionControllerTestMvc {
+public class RegionControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
