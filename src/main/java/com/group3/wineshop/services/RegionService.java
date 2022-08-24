@@ -1,6 +1,7 @@
 package com.group3.wineshop.services;
 
 import com.group3.wineshop.entities.Region;
+import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.repositories.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,8 @@ public class RegionService {
     }
 
     
-    public Region findById(long id) {
-        return regionRepository.findById(id).orElse(null);
+    public Region findById(long id) throws NotFoundException {
+        return regionRepository.findById(id).orElseThrow(() -> new NotFoundException("Region not found"));
     }
     
 

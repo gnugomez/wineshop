@@ -1,6 +1,7 @@
 package com.group3.wineshop.services;
 
 import com.group3.wineshop.entities.Type;
+import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.repositories.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,8 @@ public class TypeService {
     public List<Type> getAll(){
         return typeRepository.findAll();
     }
-    public Optional<Type> getById(Long id){
-        return typeRepository.findById(id);
+    public Type getById(Long id) throws NotFoundException{
+        return typeRepository.findById(id).orElseThrow((() -> new NotFoundException("Type not found")));
     }
     public Type save(Type type){
         return typeRepository.save(type);

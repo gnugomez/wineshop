@@ -1,6 +1,7 @@
 package com.group3.wineshop.controllers;
 
 import com.group3.wineshop.entities.Winery;
+import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.services.WineryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,8 @@ public class WineryController {
     }
 
     @GetMapping("/{id}")
-    public Winery getById(@PathVariable Long id) {
-        return wineryService.getById(id).orElse(null);
+    public Winery getById(@PathVariable Long id) throws NotFoundException {
+        return wineryService.getById(id);
     }
 
     @PostMapping("")

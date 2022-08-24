@@ -1,6 +1,7 @@
 package com.group3.wineshop.services;
 
 import com.group3.wineshop.entities.Wine;
+import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.repositories.WineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ public class WineService {
     public List<Wine> getAll() {
         return wineRepository.findAll();
     }
-    public Wine getById(Long id) throws Exception{
-        return wineRepository.findById(id).orElseThrow(() -> new Exception("nice"));
+    public Wine getById(Long id) throws NotFoundException{
+        return wineRepository.findById(id).orElseThrow(() -> new NotFoundException("Wine not found"));
     }
     public Wine save(Wine wine) {
         return wineRepository.save(wine);
