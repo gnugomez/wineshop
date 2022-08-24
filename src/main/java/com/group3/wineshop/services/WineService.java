@@ -22,8 +22,9 @@ public class WineService {
     public Wine save(Wine wine) {
         return wineRepository.save(wine);
     }
-    public void deleteById(Long id){
+    public boolean delete(Long id){
         wineRepository.deleteById(id);
+        return true;
     }
 
 

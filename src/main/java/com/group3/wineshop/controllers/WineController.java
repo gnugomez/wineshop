@@ -39,7 +39,7 @@ public class WineController {
 
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteOne(@PathVariable Long id){
-        wineService.deleteById(id);
+        wineService.delete(id);
         return new ResponseEntity<>("Wine deleted successfully", null, HttpStatus.ACCEPTED);
     }
 }
