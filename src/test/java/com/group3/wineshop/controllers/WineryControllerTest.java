@@ -1,32 +1,92 @@
 package com.group3.wineshop.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.group3.wineshop.entities.Winery;
+import com.group3.wineshop.exceptions.NotFoundException;
+import com.group3.wineshop.services.WineryService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 class WineryControllerTest {
+    @Autowired
+    MockMvc mockMvc;
 
-    @Test
-    void getAll() {
+    @MockBean
+    WineryService wineryService;
+
+    @BeforeEach
+    void setupWineryService() {
+        when(wineryService.getById(anyLong())).thenReturn(new Winery("manolo"));
+        when(wineryService.getById(0L)).thenThrow(new NotFoundException("Winery not found"));
+        when(wineryService.getAll()).thenReturn(List.of(new Winery()));
+        when(wineryService.save(any(Winery.class))).thenReturn(new Winery());
+        when(wineryService.update(any(Winery.class))).thenReturn(new Winery());
+        when(wineryService.delete(anyLong())).thenReturn(true);
     }
 
     @Test
-    void getById() {
+    void getAll() throws Exception {
+        mockMvc.perform(get("/api/wineries")
+                .contentType(MediaType.APPLICATION_JSON)
+        );
     }
 
     @Test
-    void save() {
+    void getById_Ok() throws Exception {
+        mockMvc.perform(get("/api/wineries/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is("manolo")))
+                .andReturn();
     }
 
     @Test
-    void update() {
+    void getById_NotFound() throws Exception {
+            mockMvc.perform(get("/api/wineries/0"))
+                    .andExpect(status().isNotFound());
     }
 
     @Test
-    void delete() {
+    void testCreate_Ok() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(new Winery());
+
+
+        mockMvc.perform(post("/api/wineries")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson)
+                )
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    void testDelete_Ok() throws Exception {
+
+        mockMvc.perform(delete("/api/wineries/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().is2xxSuccessful());
     }
 }

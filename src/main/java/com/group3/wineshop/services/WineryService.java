@@ -31,7 +31,8 @@ public class WineryService {
         return wineryRepository.save(winery);
     }
 
-    public void delete(Long id) {
+    public boolean delete(Long id) {
         wineryRepository.deleteById(id);
+        return true;
     }
 }
