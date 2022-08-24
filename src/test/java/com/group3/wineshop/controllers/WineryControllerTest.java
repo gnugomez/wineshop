@@ -89,4 +89,17 @@ class WineryControllerTest {
                 )
                 .andExpect(status().is2xxSuccessful());
     }
+
+    @Test
+    void testUpdate_Ok() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson = ow.writeValueAsString(new Winery());
+        mockMvc.perform(patch("/api/wineries/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson)
+                )
+                .andExpect(status().is2xxSuccessful());
+    }
 }
