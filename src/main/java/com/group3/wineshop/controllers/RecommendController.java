@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.swing.text.html.Option;
 import java.util.List;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,6 +20,16 @@ import java.util.stream.Collectors;
 public class RecommendController {
     @Autowired
     WineService wineService;
+
+    @GetMapping("/expensive")
+    List<Wine> getExpensive(@RequestParam("top") Optional<Integer> top) {
+        return top.map(integer -> wineService.getExpensive()
+                        .stream()
+                        .limit(integer)
+                        .collect(Collectors.toList()))
+                .orElseGet(() -> wineService.getExpensive());
+    }
+
 
     @GetMapping("/vintage")
     Map<String, List<Wine>> getVintage(@RequestParam("top") Optional<Integer> top) {
@@ -33,6 +44,5 @@ public class RecommendController {
     List<Wine> getBest() {
         return wineService.getBest();
     }
-
 
 }
