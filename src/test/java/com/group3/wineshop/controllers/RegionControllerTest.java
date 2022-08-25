@@ -102,7 +102,6 @@ public class RegionControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(region);
 
-
         mockMvc.perform(put("/api/region/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson)

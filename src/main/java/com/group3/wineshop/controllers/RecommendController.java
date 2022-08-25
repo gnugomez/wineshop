@@ -26,6 +26,15 @@ public class RecommendController {
     @Autowired
     WineService wineService;
 
+    @GetMapping("/bang")
+    List<Wine> getBang(@RequestParam("top") Optional<Integer> top){
+        return top.map(rank -> wineService.getBang()
+                        .stream()
+                        .limit(rank)
+                        .collect(Collectors.toList()))
+                .orElseGet(() -> wineService.getBang());
+    }
+
     @GetMapping("/expensive")
     List<Wine> getExpensive(@RequestParam("top") Optional<Integer> top) {
         return top.map(integer -> wineService.getExpensive()
@@ -35,7 +44,6 @@ public class RecommendController {
                 .orElseGet(() -> wineService.getExpensive());
     }
 
-
     @GetMapping("/vintage")
     Map<String, List<Wine>> getVintage(@RequestParam("top") Optional<Integer> top) {
         return top.map(integer -> wineService.getYearsWithBestRatedWines().entrySet()
@@ -43,6 +51,7 @@ public class RecommendController {
                 .limit(integer)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)))
                 .orElseGet(() -> wineService.getYearsWithBestRatedWines());
+
     }
 
     @GetMapping("/best")
@@ -53,4 +62,5 @@ public class RecommendController {
                         .collect(Collectors.toList()))
                 .orElseGet(() -> wineService.getBest());
     }
+
 }

@@ -3,6 +3,7 @@ package com.group3.wineshop.services;
 import com.group3.wineshop.entities.Wine;
 import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.repositories.WineRepository;
+import com.group3.wineshop.utilities.RatingToPriceRatioComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,11 @@ public class WineService {
     public List<Wine> getAll() {
         return wineRepository.findAll();
     }
+    
     public Wine getById(Integer id) throws NotFoundException{
         return wineRepository.findById(id).orElseThrow(() -> new NotFoundException("Wine not found"));
     }
+    
     public Wine save(Wine wine) {
         return wineRepository.save(wine);
     }
@@ -37,14 +40,6 @@ public class WineService {
     }
 
     //Recommendation endpoints
-    
-    
-    public List<Wine> getBest() {
-        List<Wine> wines = getAll();
-        return wines.stream()
-                .sorted(Comparator.comparingDouble(Wine::getRating).reversed())
-                .collect(Collectors.toList());
-    }
     public List<Wine> getExpensive(){
         List<Wine> wines = getAll();
         return wines.stream()
@@ -55,8 +50,6 @@ public class WineService {
 
     }
 
-
-    // this method returns a list of all years ordered by the ones with best rating wines
     public Map<String, List<Wine>> getYearsWithBestRatedWines(){
         List<Wine> wines = getAll();
         return wines.stream()
@@ -67,5 +60,18 @@ public class WineService {
                 .collect(Collectors.groupingBy(Wine::getYear));
     }
 
+    public List<Wine> getBest() {
+        List<Wine> wines = getAll();
+        return wines.stream()
+                .sorted(Comparator.comparingDouble(Wine::getRating).reversed())
+                .collect(Collectors.toList());
+    }
+
+    public List<Wine> getBang(){
+        List<Wine> wines = getAll();
+        return wines.stream()
+                .sorted(new RatingToPriceRatioComparator().reversed())
+                .collect(Collectors.toList());
+    }
 
 }
