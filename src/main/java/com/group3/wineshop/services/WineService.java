@@ -44,10 +44,7 @@ public class WineService {
         List<Wine> wines = getAll();
         return wines.stream()
                 .sorted(Comparator.comparingDouble(Wine::getPrice).reversed())
-                .limit(10)
                 .collect(Collectors.toList());
-
-
     }
 
     public Map<String, List<Wine>> getYearsWithBestRatedWines(){
