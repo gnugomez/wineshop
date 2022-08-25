@@ -37,14 +37,14 @@ public class WineService {
     }
 
     //Recommendation endpoints
-    public List<Wine> getBest(){
+    
+    
+    public List<Wine> getBest() {
         List<Wine> wines = getAll();
-        return wines.stream().filter((w)-> w.getRating()>=4.5)
-                .sorted(Comparator.comparingInt(Wine::getNum_reviews).reversed())
-                .limit(10)
+        return wines.stream()
+                .sorted(Comparator.comparingDouble(Wine::getRating).reversed())
                 .collect(Collectors.toList());
     }
-
     public List<Wine> getExpensive(){
         List<Wine> wines = getAll();
         return wines.stream()
