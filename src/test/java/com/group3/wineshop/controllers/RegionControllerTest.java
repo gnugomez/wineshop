@@ -76,7 +76,7 @@ public class RegionControllerTest {
 
     @Test
     void testCreate_Ok() throws Exception {
-        Region region = new Region();
+        Region region = new Region("name1", "country1");
         when(regionService.create(any())).thenReturn(region);
 
         ObjectMapper mapper = new ObjectMapper();
@@ -94,7 +94,7 @@ public class RegionControllerTest {
 
     @Test
     void testUpdate_Ok() throws Exception {
-        Region region = new Region();
+        Region region = new Region("name1", "country1");
         when(regionService.update(any())).thenReturn(region);
 
         ObjectMapper mapper = new ObjectMapper();
