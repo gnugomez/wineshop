@@ -39,7 +39,8 @@ public class WineController {
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<String> deleteOne(@PathVariable Integer id){
-        return wineService.delete(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Integer id) throws NotFoundException {
+        wineService.delete(id);
     }
 }

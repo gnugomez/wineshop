@@ -32,12 +32,11 @@ public class RegionService {
         return regionRepository.save(region);
     }
 
-    public ResponseEntity<String> delete(Integer id) {
-        try {
-            regionRepository.deleteById(id);
-            return new ResponseEntity<>("Region deleted successfully", null, HttpStatus.NO_CONTENT);
-        } catch (NotFoundException e){
-            return new ResponseEntity<>("Region not found", null, HttpStatus.NOT_FOUND);
-        }
+    public void delete(Integer id) {
+        regionRepository.findById(id).
+                map(region -> {
+                    regionRepository.delete(region);
+                    return region;
+                }).orElseThrow(() -> new NotFoundException("Region not found"));
     }
 }

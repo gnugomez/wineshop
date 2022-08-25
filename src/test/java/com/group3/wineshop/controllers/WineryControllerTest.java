@@ -45,20 +45,18 @@ class WineryControllerTest {
         when(wineryService.getAll()).thenReturn(List.of(new Winery()));
         when(wineryService.save(any(Winery.class))).thenReturn(new Winery());
         when(wineryService.update(any(Winery.class))).thenReturn(new Winery());
-        when(wineryService.delete(anyInt())).thenReturn(
-                new ResponseEntity<>("Winery deleted successfully", null, HttpStatus.NO_CONTENT));
     }
 
     @Test
     void getAll() throws Exception {
-        mockMvc.perform(get("/api/wineries")
+        mockMvc.perform(get("/api/winery")
                 .contentType(MediaType.APPLICATION_JSON)
         );
     }
 
     @Test
     void getById_Ok() throws Exception {
-        mockMvc.perform(get("/api/wineries/1")
+        mockMvc.perform(get("/api/winery/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("manolo")))
@@ -67,7 +65,7 @@ class WineryControllerTest {
 
     @Test
     void getById_NotFound() throws Exception {
-            mockMvc.perform(get("/api/wineries/0"))
+            mockMvc.perform(get("/api/winery/0"))
                     .andExpect(status().isNotFound());
     }
 
@@ -79,7 +77,7 @@ class WineryControllerTest {
         String requestJson = ow.writeValueAsString(new Winery());
 
 
-        mockMvc.perform(post("/api/wineries")
+        mockMvc.perform(post("/api/winery")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson)
                 )
@@ -89,7 +87,7 @@ class WineryControllerTest {
     @Test
     void testDelete_Ok() throws Exception {
 
-        mockMvc.perform(delete("/api/wineries/1")
+        mockMvc.perform(delete("/api/winery/1")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().is2xxSuccessful());
@@ -101,7 +99,7 @@ class WineryControllerTest {
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(new Winery());
-        mockMvc.perform(put("/api/wineries/1")
+        mockMvc.perform(put("/api/winery/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson)
                 )

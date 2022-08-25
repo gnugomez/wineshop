@@ -29,15 +29,14 @@ public class WineryService {
     }
 
     public Winery update(Winery winery) {
-            return wineryRepository.save(winery);
-        }
+        return wineryRepository.save(winery);
+    }
 
-    public ResponseEntity<String> delete(Integer id) {
-        try {
-            wineryRepository.deleteById(id);
-            return new ResponseEntity<>("Winery deleted successfully", null, HttpStatus.NO_CONTENT);
-        } catch (NotFoundException e){
-            return new ResponseEntity<>("Winery not found", null, HttpStatus.NOT_FOUND);
-        }
+    public void delete(Integer id) {
+        wineryRepository.findById(id).
+                map(region -> {
+                    wineryRepository.delete(region);
+                    return region;
+                }).orElseThrow(() -> new NotFoundException("Winery not found"));
     }
 }

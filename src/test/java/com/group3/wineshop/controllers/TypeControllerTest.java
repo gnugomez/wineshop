@@ -43,20 +43,18 @@ class TypeControllerTest {
         when(typeService.getAll()).thenReturn(List.of(new Type()));
         when(typeService.save(any(Type.class))).thenReturn(new Type());
         when(typeService.update(any(Type.class))).thenReturn(new Type());
-        when(typeService.delete(anyInt())).thenReturn(
-                new ResponseEntity<>("Type deleted successfully", null, HttpStatus.NO_CONTENT));
     }
 
     @Test
     void getAll() throws Exception {
-        mockMvc.perform(get("/api/types")
+        mockMvc.perform(get("/api/type")
                 .contentType(MediaType.APPLICATION_JSON)
         );
     }
 
     @Test
     void getById_Ok() throws Exception {
-        mockMvc.perform(get("/api/types/1")
+        mockMvc.perform(get("/api/type/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("Toro Red")))
@@ -65,7 +63,7 @@ class TypeControllerTest {
 
     @Test
     void getById_NotFound() throws Exception {
-        mockMvc.perform(get("/api/types/0"))
+        mockMvc.perform(get("/api/type/0"))
                 .andExpect(status().isNotFound());
     }
 
@@ -77,7 +75,7 @@ class TypeControllerTest {
         String requestJson = ow.writeValueAsString(new Type());
 
 
-        mockMvc.perform(post("/api/types")
+        mockMvc.perform(post("/api/type")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson)
                 )
@@ -86,7 +84,7 @@ class TypeControllerTest {
 
     @Test
     void testDelete_Ok() throws Exception {
-        mockMvc.perform(delete("/api/types/1")
+        mockMvc.perform(delete("/api/type/1")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().is2xxSuccessful());

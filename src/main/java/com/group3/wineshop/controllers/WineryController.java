@@ -39,7 +39,8 @@ public class WineryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Integer id) {
-        return wineryService.delete(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Integer id) throws NotFoundException {
+        wineryService.delete(id);
     }
 }

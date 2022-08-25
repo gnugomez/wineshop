@@ -48,7 +48,7 @@ public class RegionControllerTest {
     void testGetAll() throws Exception {
         when(regionService.findAll()).thenReturn(sampleRegions);
 
-        mockMvc.perform(get("/api/regions/")
+        mockMvc.perform(get("/api/region/")
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(jsonPath("$", hasSize(2)));
     }
@@ -57,7 +57,7 @@ public class RegionControllerTest {
     void testGetById_Ok() throws Exception{
         when(regionService.findById(0)).thenReturn(sampleRegions.get(0));
 
-        mockMvc.perform(get("/api/regions/0")
+        mockMvc.perform(get("/api/region/0")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("name1")))
@@ -69,7 +69,7 @@ public class RegionControllerTest {
     void testGetById_NotFound() throws Exception {
         when(regionService.findById(anyInt())).thenThrow(new NotFoundException(""));
 
-        mockMvc.perform(get("/api/regions/0")
+        mockMvc.perform(get("/api/region/0")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -85,7 +85,7 @@ public class RegionControllerTest {
         String requestJson = ow.writeValueAsString(region);
 
 
-        mockMvc.perform(post("/api/regions")
+        mockMvc.perform(post("/api/region")
                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(requestJson)
                 )
@@ -103,7 +103,7 @@ public class RegionControllerTest {
         String requestJson = ow.writeValueAsString(region);
 
 
-        mockMvc.perform(put("/api/regions/1")
+        mockMvc.perform(put("/api/region/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson)
                 )
@@ -114,7 +114,7 @@ public class RegionControllerTest {
     void testDelete_Ok() throws Exception {
         doNothing().when(regionService).delete(anyInt());
 
-        mockMvc.perform(delete("/api/regions/1")
+        mockMvc.perform(delete("/api/region/1")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isNoContent());

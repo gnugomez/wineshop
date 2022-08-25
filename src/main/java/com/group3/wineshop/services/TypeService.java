@@ -30,12 +30,11 @@ public class TypeService {
         return typeRepository.save(type);
     }
 
-    public ResponseEntity<String> delete(Integer id) {
-        try {
-            typeRepository.deleteById(id);
-            return new ResponseEntity<>("Type deleted successfully", null, HttpStatus.NO_CONTENT);
-        } catch (NotFoundException e){
-            return new ResponseEntity<>("Type not found", null, HttpStatus.NOT_FOUND);
-        }
+    public void delete(Integer id) {
+        typeRepository.findById(id).
+                map(region -> {
+                    typeRepository.delete(region);
+                    return region;
+                }).orElseThrow(() -> new NotFoundException("Type not found"));
     }
 }

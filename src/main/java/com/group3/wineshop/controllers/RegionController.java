@@ -39,7 +39,8 @@ public class RegionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Integer id) {
-        return regionService.delete(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Integer id) throws NotFoundException {
+        regionService.delete(id);
     }
 }

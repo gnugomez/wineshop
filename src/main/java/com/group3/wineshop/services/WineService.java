@@ -27,13 +27,13 @@ public class WineService {
     public Wine save(Wine wine) {
         return wineRepository.save(wine);
     }
-    public ResponseEntity<String> delete(Integer id){
-        try {
-            wineRepository.deleteById(id);
-            return new ResponseEntity<>("Wine deleted successfully", null, HttpStatus.NO_CONTENT);
-        } catch (Exception e){
-            return new ResponseEntity<>("Wine not found", null, HttpStatus.NOT_FOUND);
-        }
+
+    public void delete(Integer id) {
+        wineRepository.findById(id).
+                map(region -> {
+                    wineRepository.delete(region);
+                    return region;
+                }).orElseThrow(() -> new NotFoundException("Wine not found"));
     }
 
     //Recommendation endpoints

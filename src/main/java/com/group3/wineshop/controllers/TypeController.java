@@ -37,8 +37,8 @@ public class TypeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable Integer id){
-        return typeService.delete(id);
-
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Integer id) throws NotFoundException {
+       typeService.delete(id);
     }
 }
