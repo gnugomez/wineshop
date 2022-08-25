@@ -47,7 +47,7 @@ public class WineService {
                 .collect(Collectors.toList());
     }
 
-    public Map<String, List<Wine>> getYearsWithBestRatedWines(){
+    public Map<Integer, List<Wine>> getYearsWithBestRatedWines(){
         List<Wine> wines = getAll();
         return wines.stream()
                 .sorted(

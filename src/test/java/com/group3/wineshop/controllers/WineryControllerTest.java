@@ -74,7 +74,7 @@ class WineryControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(new Winery());
+        String requestJson = ow.writeValueAsString(new Winery("name"));
 
 
         mockMvc.perform(post("/api/winery")
@@ -98,7 +98,7 @@ class WineryControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(new Winery());
+        String requestJson = ow.writeValueAsString(new Winery("name"));
         mockMvc.perform(put("/api/winery/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson)
