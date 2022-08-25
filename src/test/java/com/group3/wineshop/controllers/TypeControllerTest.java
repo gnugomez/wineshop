@@ -72,7 +72,7 @@ class TypeControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(new Type("name1"));
+        String requestJson = ow.writeValueAsString(new Type());
 
 
         mockMvc.perform(post("/api/type")
@@ -80,30 +80,6 @@ class TypeControllerTest {
                         .content(requestJson)
                 )
                 .andExpect(status().isCreated());
-    }
-
-    @Test
-    void testCreate_MissingField() throws Exception {
-        mockMvc.perform(post("/api/type")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{}")
-                )
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void testCreate_EmptyName() throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(new Type(""));
-
-        mockMvc.perform(post("/api/type")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(requestJson)
-                )
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.name", is("Name is mandatory")));
     }
 
     @Test

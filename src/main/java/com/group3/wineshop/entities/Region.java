@@ -1,10 +1,8 @@
 package com.group3.wineshop.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+
 
 @Entity
 @Table(name="region")
@@ -13,8 +11,6 @@ public class Region {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @JsonProperty(required = true, value = "name")
-    @NotBlank(message = "Name is mandatory")
     private String name;
     private String country;
 

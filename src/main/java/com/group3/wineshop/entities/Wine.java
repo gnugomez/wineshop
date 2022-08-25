@@ -1,12 +1,6 @@
 package com.group3.wineshop.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.group3.wineshop.utilities.ValidationErr;
-
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "wine")
@@ -15,19 +9,13 @@ public class Wine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotBlank(message = "Name is mandatory")
-    @JsonProperty(value = "name", required = true)
     private String name;
-    private Integer year;
+    private String year;
     private Double rating;
     private Integer num_reviews;
     private Double price;
-    @Min(value = 1, message = ValidationErr.bodyInterval)
-    @Max(value = 5, message = ValidationErr.bodyInterval)
-    private Integer body;
-    @Min(value = 1, message = ValidationErr.acidityInterval)
-    @Max(value = 5, message = ValidationErr.acidityInterval)
-    private Integer acidity;
+    private String body;
+    private String acidity;
     private Integer winery_id;
     private Integer type_id;
     private Integer region_id;
@@ -36,8 +24,8 @@ public class Wine {
 
     }
 
-    public Wine(Integer id, String name, Integer year, Double rating, Integer num_reviews, Double price,
-                Integer body, Integer acidity, Integer winery_id, Integer type_id, Integer region_id) {
+    public Wine(Integer id, String name, String year, Double rating, Integer num_reviews, Double price,
+                String body, String acidity, Integer winery_id, Integer type_id, Integer region_id) {
         this.id = id;
         this.name = name;
         this.year = year;
@@ -67,11 +55,11 @@ public class Wine {
         this.name = name;
     }
 
-    public Integer getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(Integer year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
@@ -99,19 +87,19 @@ public class Wine {
         this.price = price;
     }
 
-    public Integer getBody() {
+    public String getBody() {
         return body;
     }
 
-    public void setBody(Integer body) {
+    public void setBody(String body) {
         this.body = body;
     }
 
-    public Integer getAcidity() {
+    public String getAcidity() {
         return acidity;
     }
 
-    public void setAcidity(Integer acidity) {
+    public void setAcidity(String acidity) {
         this.acidity = acidity;
     }
 

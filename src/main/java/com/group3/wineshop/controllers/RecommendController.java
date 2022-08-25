@@ -45,7 +45,7 @@ public class RecommendController {
     }
 
     @GetMapping("/vintage")
-    Map<Integer, List<Wine>> getVintage(@RequestParam("top") Optional<Integer> top) {
+    Map<String, List<Wine>> getVintage(@RequestParam("top") Optional<Integer> top) {
         return top.map(integer -> wineService.getYearsWithBestRatedWines().entrySet()
                 .stream()
                 .limit(integer)
