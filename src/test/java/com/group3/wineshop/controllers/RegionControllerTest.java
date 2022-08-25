@@ -8,7 +8,6 @@ import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.services.RegionService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -22,7 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -69,7 +67,7 @@ public class RegionControllerTest {
 
     @Test
     void testGetById_NotFound() throws Exception {
-        when(regionService.findById(anyLong())).thenThrow(new NotFoundException(""));
+        when(regionService.findById(anyInt())).thenThrow(new NotFoundException(""));
 
         mockMvc.perform(get("/api/regions/0")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -105,7 +103,7 @@ public class RegionControllerTest {
         String requestJson = ow.writeValueAsString(region);
 
 
-        mockMvc.perform(patch("/api/regions/1")
+        mockMvc.perform(put("/api/regions/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson)
                 )
@@ -114,13 +112,13 @@ public class RegionControllerTest {
 
     @Test
     void testDelete_Ok() throws Exception {
-        doNothing().when(regionService).delete(anyLong());
+        doNothing().when(regionService).delete(anyInt());
 
         mockMvc.perform(delete("/api/regions/1")
                         .contentType(MediaType.APPLICATION_JSON)
                 )
-                .andExpect(status().isOk());
-        verify(regionService, times(1)).delete(anyLong());
+                .andExpect(status().isNoContent());
+        verify(regionService, times(1)).delete(anyInt());
 
     }
 

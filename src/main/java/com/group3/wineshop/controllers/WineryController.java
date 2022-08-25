@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/wineries")
+@RequestMapping("/api/winery")
 public class WineryController {
 
     @Autowired
@@ -23,7 +23,7 @@ public class WineryController {
     }
 
     @GetMapping("/{id}")
-    public Winery getById(@PathVariable Long id) throws NotFoundException {
+    public Winery getById(@PathVariable Integer id) throws NotFoundException {
         return wineryService.getById(id);
     }
 
@@ -32,15 +32,14 @@ public class WineryController {
         return new ResponseEntity<>(wineryService.save(winery), null, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Winery> update(@PathVariable Long id ,@RequestBody Winery winery) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Winery> update(@PathVariable Integer id ,@RequestBody Winery winery) {
         winery.setId(id);
-        return new ResponseEntity<>(wineryService.update(winery), null, 204);
+        return new ResponseEntity<>(wineryService.update(winery), null, 201);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
-        wineryService.delete(id);
-        return new ResponseEntity<>("Winery successfully deleted", null, 204);
+    public ResponseEntity<String> delete(@PathVariable Integer id) {
+        return wineryService.delete(id);
     }
 }

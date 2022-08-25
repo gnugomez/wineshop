@@ -9,13 +9,16 @@ import com.group3.wineshop.services.WineryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -37,12 +40,13 @@ class WineryControllerTest {
 
     @BeforeEach
     void setupWineryService() {
-        when(wineryService.getById(anyLong())).thenReturn(new Winery("manolo"));
-        when(wineryService.getById(0L)).thenThrow(new NotFoundException("Winery not found"));
+        when(wineryService.getById(anyInt())).thenReturn(new Winery("manolo"));
+        when(wineryService.getById(0)).thenThrow(new NotFoundException("Winery not found"));
         when(wineryService.getAll()).thenReturn(List.of(new Winery()));
         when(wineryService.save(any(Winery.class))).thenReturn(new Winery());
         when(wineryService.update(any(Winery.class))).thenReturn(new Winery());
-        when(wineryService.delete(anyLong())).thenReturn(true);
+        when(wineryService.delete(anyInt())).thenReturn(
+                new ResponseEntity<>("Winery deleted successfully", null, HttpStatus.NO_CONTENT));
     }
 
     @Test
@@ -97,7 +101,7 @@ class WineryControllerTest {
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson = ow.writeValueAsString(new Winery());
-        mockMvc.perform(patch("/api/wineries/1")
+        mockMvc.perform(put("/api/wineries/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson)
                 )

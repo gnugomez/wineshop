@@ -8,7 +8,7 @@ public class Wine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
     private String year;
     private Double rating;
@@ -24,7 +24,7 @@ public class Wine {
 
     }
 
-    public Wine(Long id, String name, String year, Double rating, Integer num_reviews, Double price,
+    public Wine(Integer id, String name, String year, Double rating, Integer num_reviews, Double price,
                 String body, String acidity, Integer winery_id, Integer type_id, Integer region_id) {
         this.id = id;
         this.name = name;
@@ -39,11 +39,11 @@ public class Wine {
         this.region_id = region_id;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

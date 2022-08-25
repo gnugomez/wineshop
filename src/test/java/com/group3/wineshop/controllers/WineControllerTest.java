@@ -12,15 +12,16 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -37,11 +38,14 @@ class WineControllerTest {
 
     @BeforeEach
     void setupWineryService() {
-        when(wineService.getById(anyLong())).thenReturn(new Wine(2L, "Get Wine", "2022", 4.5, 2, 27.38, "4", "3", 1, 1, 1));
-        when(wineService.getById(0L)).thenThrow(new NotFoundException("Winery not found"));
+        when(wineService.getById(anyInt())).thenReturn(new Wine(2, "Get Wine", "2022", 4.5,
+                2, 27.38, "4", "3", 1, 1, 1));
+        when(wineService.getById(0)).thenThrow(new NotFoundException("Winery not found"));
         when(wineService.getAll()).thenReturn(List.of(new Wine()));
-        when(wineService.save(any(Wine.class))).thenReturn(new Wine(5005L, "Save Wine", "2022", 4.5, 2, 27.38, "4", "3", 1, 1, 1));
-        when(wineService.delete(anyLong())).thenReturn(true);
+        when(wineService.save(any(Wine.class))).thenReturn(new Wine(5005, "Save Wine", "2022", 4.5,
+                2, 27.38, "4", "3", 1, 1, 1));
+        when(wineService.delete(anyInt())).thenReturn(
+                new ResponseEntity<>("Type deleted successfully", null, HttpStatus.NO_CONTENT));
     }
 
     @Test
@@ -66,7 +70,16 @@ class WineControllerTest {
 
     @Test
     public void updateTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.patch("/api/wines").content(writeAsJsonString(new Wine())).contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Save Wine")).andExpect(MockMvcResultMatchers.jsonPath("$.year").value("2022")).andExpect(MockMvcResultMatchers.jsonPath("$.price").value(27.38));
+        mockMvc.perform( MockMvcRequestBuilders
+                        .put("/api/wines")
+                        .content(writeAsJsonString(new Wine()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Save Wine"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.year").value("2022"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(27.38));
+
     }
 
 

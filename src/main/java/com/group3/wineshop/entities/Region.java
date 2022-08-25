@@ -2,15 +2,14 @@ package com.group3.wineshop.entities;
 
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
+
 
 @Entity
 @Table(name="region")
 public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String name;
     private String country;
@@ -40,11 +39,11 @@ public class Region {
         this.country = country;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

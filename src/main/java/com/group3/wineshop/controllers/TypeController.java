@@ -1,7 +1,6 @@
 package com.group3.wineshop.controllers;
 
 import com.group3.wineshop.entities.Type;
-import com.group3.wineshop.entities.Winery;
 import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.services.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/types")
+@RequestMapping("/api/type")
 
 public class TypeController {
     @Autowired
@@ -22,22 +21,24 @@ public class TypeController {
         return typeService.getAll();
     }
     @GetMapping("/{id}")
-    public Type getById(@PathVariable Long id) throws NotFoundException {
+    public Type getById(@PathVariable Integer id) throws NotFoundException {
         return typeService.getById(id);
     }
     @PostMapping("")
     public ResponseEntity<Type> save(@RequestBody Type type) {
         return new ResponseEntity<>(typeService.save(type), null, HttpStatus.CREATED);
     }
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id){
-        typeService.delete(id);
 
-    }
-    @PatchMapping("/{id}")
-    public Type update(@PathVariable Long id, @RequestBody Type type){
+    @PutMapping("/{id}")
+    public Type update(@PathVariable Integer id, @RequestBody Type type){
         type.setId(id);
         return typeService.update(type);
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable Integer id){
+        return typeService.delete(id);
 
     }
 }

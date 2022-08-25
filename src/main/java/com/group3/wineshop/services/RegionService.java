@@ -4,10 +4,11 @@ import com.group3.wineshop.entities.Region;
 import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.repositories.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RegionService {
@@ -18,12 +19,10 @@ public class RegionService {
         return regionRepository.findAll();
     }
 
-    
-    public Region findById(long id) throws NotFoundException {
+    public Region findById(Integer id) throws NotFoundException {
         return regionRepository.findById(id).orElseThrow(() -> new NotFoundException("Region not found"));
 
     }
-    
 
     public Region create(Region region) {
         return regionRepository.save(region);
@@ -33,7 +32,12 @@ public class RegionService {
         return regionRepository.save(region);
     }
 
-    public void delete(Long id) {
-        regionRepository.deleteById(id);
+    public ResponseEntity<String> delete(Integer id) {
+        try {
+            regionRepository.deleteById(id);
+            return new ResponseEntity<>("Region deleted successfully", null, HttpStatus.NO_CONTENT);
+        } catch (NotFoundException e){
+            return new ResponseEntity<>("Region not found", null, HttpStatus.NOT_FOUND);
+        }
     }
 }

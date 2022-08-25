@@ -1,7 +1,6 @@
 package com.group3.wineshop.controllers;
 
 import com.group3.wineshop.entities.Region;
-import com.group3.wineshop.entities.Winery;
 import com.group3.wineshop.exceptions.NotFoundException;
 import com.group3.wineshop.services.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/regions")
+@RequestMapping("/api/region")
 public class RegionController {
     @Autowired
     RegionService regionService;
@@ -23,7 +22,7 @@ public class RegionController {
     }
 
     @GetMapping("/{id}")
-    public Region getById(@PathVariable Long id) throws NotFoundException {
+    public Region getById(@PathVariable Integer id) throws NotFoundException {
         return regionService.findById(id);
 
     }
@@ -33,14 +32,14 @@ public class RegionController {
         return new ResponseEntity<>(regionService.create(region), null, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<Region> update(@RequestBody Region region, @PathVariable Long id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Region> update(@RequestBody Region region, @PathVariable Integer id) {
         region.setId(id);
         return new ResponseEntity<>(regionService.update(region), null, HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        regionService.delete(id);
+    public ResponseEntity<String> delete(@PathVariable Integer id) {
+        return regionService.delete(id);
     }
 }

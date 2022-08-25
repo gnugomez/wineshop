@@ -14,7 +14,9 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -36,12 +38,13 @@ class TypeControllerTest {
 
     @BeforeEach
     void setupTypeService() {
-        when(typeService.getById(anyLong())).thenReturn(new Type("Toro Red"));
-        when(typeService.getById(0L)).thenThrow(new NotFoundException("Type not found"));
+        when(typeService.getById(anyInt())).thenReturn(new Type("Toro Red"));
+        when(typeService.getById(0)).thenThrow(new NotFoundException("Type not found"));
         when(typeService.getAll()).thenReturn(List.of(new Type()));
         when(typeService.save(any(Type.class))).thenReturn(new Type());
         when(typeService.update(any(Type.class))).thenReturn(new Type());
-        when(typeService.delete(anyLong())).thenReturn(true);
+        when(typeService.delete(anyInt())).thenReturn(
+                new ResponseEntity<>("Type deleted successfully", null, HttpStatus.NO_CONTENT));
     }
 
     @Test

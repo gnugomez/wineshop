@@ -1,8 +1,6 @@
 package com.group3.wineshop.entities;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "winery")
@@ -11,7 +9,7 @@ public class Winery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
 
     public Winery() {
@@ -21,11 +19,11 @@ public class Winery {
         this.name = name;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
